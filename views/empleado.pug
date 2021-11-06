@@ -1,0 +1,81 @@
+extends base.pug
+
+block title 
+    title Empleado
+    link(rel="stylesheet", href="../bootstrap/bootstrap.min.css")
+    link(rel="stylesheet", href="../css/style.css")
+    script.
+        let accion = !{JSON.stringify(accion)}
+        let deptos = !{JSON.stringify(depto)}
+        let empleado = !{JSON.stringify(empleado)}
+    script(src="../js/empleado.js") 
+block header 
+    header.d-flex.justify-content-center.py-3
+        ul.nav.nav-pills
+            li.nav-item
+            a.nav-link.active(href='/' aria-current='page') Empleados
+            li.nav-item
+            a.nav-link(href='/departamentos') Departamentos
+block container
+    .container
+        - let if1 = accion == "nuevo"
+        if if1
+            h2 Nuevo Empleado
+            form(action='/empleado/guardar' method='post')
+                .row.mt-3
+                    .col
+                        label.form-label(for='IdEmpleado') N° Identidad
+                        input#IdEmpleado.form-control(type='number' required='' name='IdEmpleado')
+                    .col
+                        label.form-label(for='NombreCompleto') Nombre Completo
+                        input#NombreCompleto.form-control(type='text' required='' name='NombreCompleto')
+                .row.mt-3
+                    .col
+                        label.form-label(for='Celular') Celular
+                        input#nCelular.form-control(type='number' required='' name='Celular')
+                    .col
+                        label.form-label(for='Correo') Correo eletrónico
+                        input#nCorreo.form-control(type='email' required='' name='Correo')
+                .row.mt-3
+                    .col-8
+                        label.form-label(for='Direccion') Dirección
+                        input#nDireccion.form-control(type='text' required='' name='Direccion')
+                    .col
+                        label.form-label(for='IdDepto') Departamento
+                        select#IdDepto.form-select(aria-label='Seleccione un departamento' required='' name='IdDepto')
+                .row.mt-3
+                    .col.d-grid.gap-2
+                        button.btn.btnCustom(type='submit') Guardar
+                    .col.d-grid.gap-2
+                        a.btn.btnCustom(href='/') Regresar
+        - let if2 = accion == "editar" && empleado
+        if if2
+            h2#nombreEmpleado
+            form(action='/empleado/editar' method='post')
+                .row.mt-3
+                    .col
+                        label.form-label(for='IdEmpleado') N° Identidad
+                        input#IdEmpleado.form-control(type='number' required='' name='IdEmpleado' readonly)
+                    .col
+                        label.form-label(for='NombreCompleto') Nombre Completo
+                        input#NombreCompleto.form-control(type='text' required='' name='NombreCompleto')
+                .row.mt-3
+                    .col
+                        label.form-label(for='Celular') Celular
+                        input#Celular.form-control(type='number' required='' name='Celular')
+                    .col
+                        label.form-label(for='Correo') Correo eletrónico
+                        input#Correo.form-control(type='email' required='' name='Correo')
+                .row.mt-3
+                    .col-8
+                        label.form-label(for='Direccion') Dirección
+                        input#Direccion.form-control(type='text' required='' name='Direccion')
+                    .col
+                        label.form-label(for='IdDepto') Departamento
+                        select#IdDepto.form-select( required name='IdDepto')
+                            #{optDeptos}
+                .row.mt-3
+                    .col.d-grid.gap-2
+                        button.btn.btnCustom(type='submit') Guardar
+                    .col.d-grid.gap-2
+                        a.btn.btnCustom(href='/') Regresar

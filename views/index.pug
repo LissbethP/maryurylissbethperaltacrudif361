@@ -1,0 +1,39 @@
+extends base.pug
+
+block title 
+    title Empleados
+    link(rel="stylesheet", href="bootstrap/bootstrap.min.css")
+    script(src="js/index.js") 
+    link(rel="stylesheet", href="css/style.css")
+    script.
+        var data = !{JSON.stringify(data)};
+block header 
+    header.d-flex.justify-content-center.py-3
+        ul.nav.nav-pills
+            li.nav-item
+            a.nav-link.active(href='/' aria-current='page') Empleados
+            li.nav-item
+            a.nav-link(href='/departamentos') Departamentos
+block container
+    .container
+        .row
+            .col.mt-3
+                p
+                    a.btn.btnCustom(href="/empleado/?accion=nuevo")
+                        i.fas.fa-user-plus    Nuevo Empleado
+                .table-responsive
+                    table.table.table-hover.align-middle
+                        thead 
+                            tr
+                                th(scope='col') N°Identidad
+                                th(scope='col') Nombre
+                                th(scope='col') Celular
+                                th(scope='col') Correo
+                                th(scope='col') Dirección
+                                th(scope='col') Departamento
+                                th(scope='col') 
+                        tbody#data-empleados
+                    
+
+
+

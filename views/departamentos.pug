@@ -1,0 +1,32 @@
+extends base.pug
+
+block title 
+    title Departamentos
+    link(rel="stylesheet", href="../bootstrap/bootstrap.min.css")
+    link(rel="stylesheet", href="../css/style.css")
+    script(src="../js/departamentos.js")
+    script.
+        var data = !{JSON.stringify(data)};
+block header 
+    header.d-flex.justify-content-center.py-3
+        ul.nav.nav-pills
+            li.nav-item
+            a.nav-link(href='/') Empleados
+            li.nav-item
+            a.nav-link.active(href='/departamentos'  aria-current='page') Departamentos
+block container
+    .container
+        .row
+            .col.mt-3
+                p
+                    a.btn.btnCustom(href="/departamento/?accion=nuevo")
+                        i.fas.fa-user-plus    Nuevo Departamento
+                .table-responsive
+                    table.table.table-hover.align-middle
+                        thead 
+                            tr
+                                th(scope='col') Código
+                                th(scope='col') Nombre
+                                th(scope='col') Descripción
+                                th(scope='col') 
+                        tbody#data-departamentos

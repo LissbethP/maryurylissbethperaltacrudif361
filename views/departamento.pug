@@ -1,0 +1,54 @@
+extends base.pug
+
+block title 
+    title Departamento
+    link(rel="stylesheet", href="../bootstrap/bootstrap.min.css")
+    link(rel="stylesheet", href="../css/style.css")
+    script.
+        let accion = !{JSON.stringify(accion)}
+        let depto = !{JSON.stringify(depto) || '""'}
+    script(src="../js/departamento.js") 
+block header 
+    header.d-flex.justify-content-center.py-3
+        ul.nav.nav-pills
+            li.nav-item
+            a.nav-link(href='/') Empleados
+            li.nav-item
+            a.nav-link.active(href='/departamentos'  aria-current='page') Departamentos
+block container
+    .container
+        - let if1 = accion == "nuevo"
+        if if1
+            h2 Nuevo Departamento
+            form(action='/departamento/guardar' method='post')
+                .row.mt-3
+                    .col
+                        label.form-label(for='NombreDepto') Nombre del departamento
+                        input#NombreDepto.form-control(type='text' required='' name='NombreDepto')
+                    .col
+                        label.form-label(for='Descripcion') Descripción del departamento
+                        input#Descripcion.form-control(type='text' required='' name='Descripcion')
+                .row.mt-3
+                    .col.d-grid.gap-2
+                        button.btn.btnCustom(type='submit') Guardar
+                    .col.d-grid.gap-2
+                        a.btn.btnCustom(href='/departamentos') Regresar
+        - let if2 = accion == "editar" && depto
+        if if2
+            h2#nombreDepartamento
+            form(action='/departamento/editar' method='post')
+                .row.mt-3
+                    .col
+                        label.form-label(for='IdDepto') Código
+                        input#IdDepto.form-control(type='number' readonly name='IdDepto')
+                    .col
+                        label.form-label(for='NombreDepto') Nombre del departamento
+                        input#NombreDepto.form-control(type='text' required='' name='NombreDepto')
+                    .col
+                        label.form-label(for='Descripcion') Descripción del departamento
+                        input#Descripcion.form-control(type='text' required='' name='Descripcion')
+                .row.mt-3
+                    .col.d-grid.gap-2
+                        button.btn.btnCustom(type='submit') Guardar
+                    .col.d-grid.gap-2
+                        a.btn.btnCustom(href='/departamentos') Regresar
